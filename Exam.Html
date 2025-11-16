@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>امتحان ميدترم - تقييم التعلم</title>
+<style>
+body {
+    font-family: Tahoma;
+    background: #f5f5f5;
+    padding: 20px;
+}
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: auto;
+    box-shadow: 0 0 10px #ccc;
+}
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+}
+#timer {
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>امتحان إلكتروني - الدرجة: 10 - الزمن: 15 دقيقة</h2>
+<div id="timer">15:00</div>
+
+<form id="examForm">
+
+<h3>اختر الإجابة الصحيحة:</h3>
+
+<label>1. عملية يتم فيها التعبير عن السمة بصورة رقمية هي:</label><br>
+<input type="radio" name="q1" value="0"> التقويم<br>
+<input type="radio" name="q1" value="1"> القياس<br>
+<input type="radio" name="q1" value="0"> التقييم<br>
+<input type="radio" name="q1" value="0"> الملاحظة<br><br>
+
+<label>2. التقييم الذي يحدث أثناء عملية التعلم بهدف تحسين الأداء هو:</label><br>
+<input type="radio" name="q2" value="0"> الختامي<br>
+<input type="radio" name="q2" value="0"> التشخيصي<br>
+<input type="radio" name="q2" value="1"> التكويني<br>
+<input type="radio" name="q2" value="0"> الإجمالي<br><br>
+
+<label>3. أحد عيوب نظم التقويم التقليدية:</label><br>
+<input type="radio" name="q3" value="0"> تنوع الأدوات<br>
+<input type="radio" name="q3" value="1"> التركيز على الحفظ<br>
+<input type="radio" name="q3" value="0"> مراعاة الفروق<br>
+<input type="radio" name="q3" value="0"> تغذية راجعة مستمرة<br><br>
+
+<label>4. أكثر أدوات التقييم المناسبة لقياس الاتجاهات:</label><br>
+<input type="radio" name="q4" value="0"> الاختبار التحصيلي<br>
+<input type="radio" name="q4" value="0"> المقابلة<br>
+<input type="radio" name="q4" value="1"> الاستبيان<br>
+<input type="radio" name="q4" value="0"> الملاحظة<br><br>
+
+<label>5. تعلم المهارات النفسحركية يعتمد على:</label><br>
+<input type="radio" name="q5" value="0"> الاستذكار<br>
+<input type="radio" name="q5" value="1"> التدريب والممارسة<br>
+<input type="radio" name="q5" value="0"> التكرار اللفظي<br>
+<input type="radio" name="q5" value="0"> غير مقصود<br><br>
+
+<label>6. من معايير الاختبار الجيد:</label><br>
+<input type="radio" name="q6" value="0"> الغموض<br>
+<input type="radio" name="q6" value="0"> الصعوبة المبالغ فيها<br>
+<input type="radio" name="q6" value="1"> الصدق والثبات<br>
+<input type="radio" name="q6" value="0"> الطول الزائد<br><br>
+
+<label>7. ملف الإنجاز يستخدم في:</label><br>
+<input type="radio" name="q7" value="1"> جمع أعمال الطالب<br>
+<input type="radio" name="q7" value="0"> سرعة الإجابة<br>
+<input type="radio" name="q7" value="0"> الذكاء<br>
+<input type="radio" name="q7" value="0"> التصنيف<br><br>
+
+<label>8. التعلم الذي يحدث بالصدفة يسمى:</label><br>
+<input type="radio" name="q8" value="0"> مقصود<br>
+<input type="radio" name="q8" value="1"> غير مقصود<br>
+<input type="radio" name="q8" value="0"> نظري<br>
+<input type="radio" name="q8" value="0"> بنائي<br><br>
+
+<label>9. الأداة الأنسب لتقييم السلوك أثناء نشاط جماعي:</label><br>
+<input type="radio" name="q9" value="0"> الاستبيان<br>
+<input type="radio" name="q9" value="1"> الملاحظة<br>
+<input type="radio" name="q9" value="0"> الشفوي<br>
+<input type="radio" name="q9" value="0"> ورقة عمل<br><br>
+
+<label>10. التقويم الذي يحدث قبل التدريس مباشرة هو:</label><br>
+<input type="radio" name="q10" value="1"> تشخيصي<br>
+<input type="radio" name="q10" value="0"> تكويني<br>
+<input type="radio" name="q10" value="0"> ختامي<br>
+<input type="radio" name="q10" value="0"> محكي المرجع<br><br>
+
+<button type="button" onclick="submitExam()">إرسال</button>
+
+</form>
+
+<h2 id="result"></h2>
+
+</div>
+
+<script>
+let timeLeft = 900;
+let timer = setInterval(function(){
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    document.getElementById("timer").innerHTML =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+    timeLeft--;
+    if(timeLeft < 0){
+        clearInterval(timer);
+        submitExam();
+    }
+}, 1000);
+
+function submitExam(){
+    clearInterval(timer);
+    let score = 0;
+    let inputs = document.querySelectorAll("input[type='radio']:checked");
+    inputs.forEach(i => { score += parseInt(i.value); });
+    document.getElementById("result").innerHTML =
+        "درجتك: " + score + " / 10";
+}
+</script>
+
+</body>
+</html>
